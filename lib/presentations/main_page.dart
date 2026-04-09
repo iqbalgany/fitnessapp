@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        color: Colors.black,
+        color: Colors.deepOrange,
         backgroundColor: Colors.white,
         animationDuration: const Duration(milliseconds: 500),
         index: currentTabIndex,

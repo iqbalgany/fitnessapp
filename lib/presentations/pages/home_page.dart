@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Material(
-                  elevation: 2,
+                  elevation: 6,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     padding: EdgeInsets.all(15),
