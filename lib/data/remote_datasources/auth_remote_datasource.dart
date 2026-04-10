@@ -37,7 +37,7 @@ class AuthRemoteDatasource {
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
-        'password': password,
+        'fullName': fullName,
       });
 
       return userCredential;

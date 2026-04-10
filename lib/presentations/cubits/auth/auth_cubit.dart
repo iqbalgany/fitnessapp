@@ -14,10 +14,22 @@ class AuthCubit extends Cubit<AuthState> {
   late StreamSubscription<fb.User?> _authSubscription;
 
   AuthCubit(this._auth) : super(const AuthState()) {
-    _authSubscription = _auth.authStateChanges.listen((fbUser) {
+    _authSubscription = _auth.authStateChanges.listen((fbUser) async {
       if (fbUser != null) {
-        final myUser = UserModel(uid: fbUser.uid, email: fbUser.email);
-        emit(state.copyWith(status: AuthStatus.authenticated, user: myUser));
+        _auth.getUser().listen((allUsers) {
+          final currentUserDoc = allUsers.firstWhere(
+            (element) => element.uid == fbUser.uid,
+            orElse: () => UserModel(uid: fbUser.uid, email: fbUser.email),
+          );
+
+          emit(
+            state.copyWith(
+              status: AuthStatus.authenticated,
+              user: currentUserDoc,
+              users: allUsers,
+            ),
+          );
+        });
       } else {
         emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
       }
@@ -63,7 +75,13 @@ class AuthCubit extends Cubit<AuthState> {
 
     _auth.getUser().listen(
       (users) {
-        emit(state.copyWith(status: AuthStatus.authenticated, users: users));
+        emit(
+          state.copyWith(
+            status: AuthStatus.authenticated,
+            users: users,
+            user: users.isNotEmpty ? users.first : null,
+          ),
+        );
       },
 
       onError: (error) {
