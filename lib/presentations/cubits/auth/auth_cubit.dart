@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:fitnessapp/data/datasources/auth_remote_datasource.dart';
 import 'package:fitnessapp/data/models/user_model.dart';
-import 'package:fitnessapp/data/remote_datasources/auth_remote_datasource.dart';
 
 part 'auth_state.dart';
 
